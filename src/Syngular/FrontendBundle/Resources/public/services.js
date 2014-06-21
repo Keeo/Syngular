@@ -19,11 +19,11 @@ angular.module('People.services', [])
 			CrudService.prototype.update = function(id, entity) {
 				return $http.put(this.api_url + '/' + id, entity);
 			};
-			
+
 			CrudService.prototype.delete = function(id) {
 				return $http.delete(this.api_url + '/' + id);
 			};
-			
+
 			return {
 				getInstance: function(api_url) {
 					return new CrudService(api_url);
@@ -32,11 +32,11 @@ angular.module('People.services', [])
 
 		})
 
-		.factory('PeopleService', function($http, AbstractCrudService) {
+		.factory('PeopleService', function(AbstractCrudService) {
 
 			var api_url = 'http://localhost/Syngular/web/app_dev.php/people';
-			
+
 			var service = AbstractCrudService.getInstance(api_url);
-			
+
 			return service;
 		});

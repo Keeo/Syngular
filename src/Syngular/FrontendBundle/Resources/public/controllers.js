@@ -55,9 +55,8 @@ angular.module('People.controllers', [])
 				}
 
 				$scope.send = true;
-
 				PeopleService.update($routeParams.personId, $scope.person).success(function() {
-					$location.path('#/people/' + $routeParams.personId);
+					$location.path('/person/' + $routeParams.personId);
 				});
 			};
 
