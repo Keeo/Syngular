@@ -23,7 +23,7 @@ class PersonController extends AbstractController
      */
     public function allAction()
     {
-        $people = $this->getDoctrine()->getRepository('SyngularBackendBundle:Person')->findAll();
+        $people = $this->getRepository()->findAll();
         $view = $this->view($people, 200)->setFormat("json");
         return $this->handleView($view);
     }
