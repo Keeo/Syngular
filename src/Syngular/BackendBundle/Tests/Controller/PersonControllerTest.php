@@ -15,12 +15,21 @@ class PersonControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
     }*/
     
-    public function testPost()
+    /*public function testPost()
     {
         $client = static::createClient();
 
         $crawler = $client->request('POST', '/people/',['name'=>'Karel']);
 
+        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    }*/
+    
+    public function testDelete()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('DELETE', '/people/',['name'=>'Karel']);
+        
         $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
     }
 }

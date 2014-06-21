@@ -20,6 +20,11 @@ class Person extends AbstractEntity
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $address;
+    
+    /**
      * Set name
      *
      * @param string $name
@@ -40,5 +45,28 @@ class Person extends AbstractEntity
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Person
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

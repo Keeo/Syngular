@@ -50,6 +50,7 @@ class PersonController extends AbstractController
     
     /**
      * @View(statusCode=204)
+     * @Route("/people/{id}")
      * @Method("DELETE")
      */
     public function deleteAction(Person $person)
