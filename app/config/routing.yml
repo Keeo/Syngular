@@ -1,10 +1,9 @@
-sokol_backend:
-    resource: "@SokolBackendBundle/Controller/"
+syngular_frontend:
+    resource: "@SyngularFrontendBundle/Controller/"
     type:     annotation
     prefix:   /
 
-sokol_frontend:
-    resource: "@SokolFrontendBundle/Controller/"
+syngular_backend:
+    resource: "@SyngularBackendBundle/Controller/"
     type:     annotation
     prefix:   /
-
