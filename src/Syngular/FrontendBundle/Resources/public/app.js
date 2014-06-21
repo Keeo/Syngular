@@ -1,0 +1,1 @@
+angular.module('People', ['People.controllers', 'People.services']);
