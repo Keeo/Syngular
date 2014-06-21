@@ -15,3 +15,4 @@ composer.lock
 /src/Sokol/FrontendBundle/resources/public/lib/*
 !/src/Sokol/FrontendBundle/resources/public/lib/.gitkeep
 /nbproject/private/
+/src/Syngular/FrontendBundle/Resources/public/lib/
