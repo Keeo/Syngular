@@ -1,9 +1,10 @@
 {
-  "name": "sokol",
+  "name": "Syngular",
   "version": "0.0.0",
-  "homepage": "https://github.com/Keeo/Sokol",
+  "homepage": "https://github.com/Keeo/Syngular",
   "authors": [
-    "Martin Morávek (moravek.martin) <moravek.martin@gmail.com>"
+    "Martin Morávek (moravek.martin) <moravek.martin@gmail.com>",
+	"Jan Slifka (jan.slifka) <jan.slifka@gmail.com>"
   ],
   "private": true,
   "ignore": [
