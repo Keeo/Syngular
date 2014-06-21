@@ -7,8 +7,14 @@ angular.module('People.services', [])
 				getPeople: function() {
 					return $http.get(api_url);
 				},
-				getPerson: function(userId) {
-					return $http.get(api_url + '/' + userId);
+				getPerson: function(personId) {
+					return $http.get(api_url + '/' + personId);
+				},
+				savePerson: function(person) {
+					return $http.post(api_url, person);
+				},
+				deletePerson: function(personId) {
+					return $http.delete(api_url + '/' + personId);
 				}
 			};
 		});
