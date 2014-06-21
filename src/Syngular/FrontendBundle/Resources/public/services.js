@@ -15,6 +15,9 @@ angular.module('People.services', [])
 				},
 				deletePerson: function(personId) {
 					return $http.delete(api_url + '/' + personId);
+				},
+				updatePerson: function(personId, person) {
+					return $http.put(api_url + '/' + personId, person);
 				}
 			};
 		});

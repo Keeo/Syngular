@@ -13,9 +13,14 @@ angular.module('People', ['ngRoute', 'People.controllers', 'People.services'])
 						templateUrl: templates_path + 'templates/person.html',
 						controller: 'PersonCtrl'
 					})
-					
+
 					.when('/add', {
 						templateUrl: templates_path + 'templates/add.html',
 						controller: 'AddCtrl'
+					})
+
+					.when('/edit/:personId', {
+						templateUrl: templates_path + 'templates/edit.html',
+						controller: 'EditCtrl'
 					});
 		});
