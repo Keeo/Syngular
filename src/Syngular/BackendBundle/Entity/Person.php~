@@ -18,4 +18,27 @@ class Person extends AbstractEntity
      * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $name;
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Person
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }

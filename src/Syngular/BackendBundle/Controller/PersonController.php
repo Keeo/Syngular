@@ -15,7 +15,7 @@ use FOS\RestBundle\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Syngular\BackendBundle\Entity\Person;
 
-class PersonController extends \FOS\RestBundle\Controller\FOSRestController
+class PersonController extends AbstractController
 {
     /**
      * @Route("/people/")
