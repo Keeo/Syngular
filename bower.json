@@ -1,0 +1,19 @@
+{
+  "name": "sokol",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Keeo/Sokol",
+  "authors": [
+    "Martin Morávek (moravek.martin) <moravek.martin@gmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.16"
+  }
+}

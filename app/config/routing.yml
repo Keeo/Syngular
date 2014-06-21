@@ -1,0 +1,10 @@
+sokol_backend:
+    resource: "@SokolBackendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+sokol_frontend:
+    resource: "@SokolFrontendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
