@@ -74,8 +74,12 @@ fos_rest:
     format_listener: true
     view:
         view_response_listener: 'force'
+    body_converter:
+        enabled: true
+        #validate: true
 
 sensio_framework_extra:
     view:    { annotations: false }
     router:  { annotations: true }
+    request: { converters: true }
     

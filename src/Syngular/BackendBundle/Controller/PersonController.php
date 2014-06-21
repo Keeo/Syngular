@@ -25,16 +25,35 @@ class PersonController extends AbstractController
     {
         $people = $this->getRepository()->findAll();
         $view = $this->view($people, 200)->setFormat("json");
-        return $this->handleView($view);
+        return $view;
     }
     
     /**
-     * @Route("/person/{id}")
+     * @Route("/people/{id}")
      * @Method("GET")
      */
     public function oneAction(Person $person)
     {
         $view = $this->view($person, 200)->setFormat("json");
-        return $this->handleView($view);
+        return $view;
+    }
+    
+    /**
+     * @ParamConverter("person", converter="fos_rest.request_body")
+     * @Route("/people/")
+     * @Method("POST")
+     */
+    public function postAction(Person $person) 
+    {
+        
+    }
+    
+    /**
+     * @View(statusCode=204)
+     * @Method("DELETE")
+     */
+    public function deleteAction(Person $person)
+    {
+        $this->getDoctrine()->getManager()->remove($person);
     }
 }
