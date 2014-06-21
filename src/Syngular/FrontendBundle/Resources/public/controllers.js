@@ -1,18 +1,18 @@
 angular.module('People.controllers', [])
 		.controller('PeopleCtrl', function($scope, PeopleService) {
-			PeopleService.getPeople().success(function(response) {
+			PeopleService.getAll().success(function(response) {
 				$scope.people = response;
 			});
 
 		})
 
 		.controller('PersonCtrl', function($scope, $routeParams, $location, PeopleService) {
-			PeopleService.getPerson($routeParams.personId).success(function(response) {
+			PeopleService.get($routeParams.personId).success(function(response) {
 				$scope.person = response;
 			});
 
 			$scope.deletePerson = function() {
-				PeopleService.deletePerson($routeParams.personId).success(function() {
+				PeopleService.delete($routeParams.personId).success(function() {
 					$location.path('/');
 				});
 			};
@@ -34,7 +34,7 @@ angular.module('People.controllers', [])
 
 				$scope.send = true;
 
-				PeopleService.savePerson($scope.person).success(function() {
+				PeopleService.create($scope.person).success(function() {
 					$location.path('/');
 				});
 			};
@@ -43,7 +43,7 @@ angular.module('People.controllers', [])
 		.controller('EditCtrl', function($scope, $routeParams, $location, PeopleService) {
 			$scope.send = true;
 
-			PeopleService.getPerson($routeParams.personId).success(function(response) {
+			PeopleService.get($routeParams.personId).success(function(response) {
 				$scope.person = response;
 				$scope.send = false;
 			});
@@ -56,8 +56,8 @@ angular.module('People.controllers', [])
 
 				$scope.send = true;
 
-				PeopleService.updatePerson($routeParams.personId, $scope.person).success(function() {
-					$location.path('#/person/' + $routeParams.personId);
+				PeopleService.update($routeParams.personId, $scope.person).success(function() {
+					$location.path('#/people/' + $routeParams.personId);
 				});
 			};
 
