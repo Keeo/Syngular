@@ -1,4 +1,13 @@
-<h2>{{ person.name }}</h2>
-<p>{{ person.address }}</p>
-<a href="#/edit/{{ person.id }}">Upravit</a>
-<button ng-click="deletePerson()">Smazat</button>
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h2 class="panel-title">{{ person.name }}</h2>
+		</div>
+		<div class="panel-body">
+			{{ person.address }}
+		</div>
+	</div>
+</div>
+<p></p>
+<a href="#/edit/{{ person.id }}" class="btn btn-default">Upravit</a>
+<button ng-click="deletePerson()" class="btn btn-danger">Smazat</button>

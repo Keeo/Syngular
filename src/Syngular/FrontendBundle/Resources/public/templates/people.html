@@ -1,6 +1,6 @@
-<p><a href="#/add">+ přidat novýho týpka</a></p>
-<ul>
-	<li ng-repeat="person in people">
-		<a href="#/person/{{ person.id }}">{{ person.name }}</a>
-	</li>
-</ul>
+<p><a href="#/add" class="btn btn-default">+ přidat novýho týpka</a></p>
+<div class="list-group">
+	<a ng-repeat="person in people | orderBy:'name'" href="#/person/{{ person.id }}" class="list-group-item">
+		{{ person.name }}
+	</a>
+</div>
