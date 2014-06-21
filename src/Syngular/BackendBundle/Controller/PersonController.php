@@ -62,41 +62,46 @@ class PersonController extends AbstractController
      * @Route("/people/{id}")
      * @Method("PUT")
      */
-    public function putAction($id, Person $person) 
+    public function putAction(Person $person, $id) 
     {
         $person->setId($id);
         return $this->processForm($person);
     }
     
-    private function processForm(Person $person)
+    private function processForm(Person $person, Request $request = null)
     {
         $statusCode = $person->getId() ? 201 : 204;
 
-        $validator = $this->get('validator');
-        $errors = $validator->validate($person);
-
-        if (!count($errors)) {
+        $form = $this->createForm(new PersonType(), $person);
+        if ($request != null) {
+            $form->handleRequest($request);
+        }
+        
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($person->getId()) {
-                $em->merge($person);
-            } else {
+            if (!$person->getId()) {
                 $em->persist($person);
+            } else {
+                $em->merge($person);
             }
             $em->flush();
-            
+
             $response = new Response();
             $response->setStatusCode($statusCode);
-            $response->headers->set('Location',
-                $this->generateUrl(
-                    'people_get', array('id' => $person->getId()),
-                    true
-                )
-            );
+
+            if (201 === $statusCode) {
+                $response->headers->set('Location',
+                    $this->generateUrl(
+                        'people_get', array('id' => $person->getId()),
+                        true
+                    )
+                );
+            }
 
             return $response;
-        }
-        // well fuck
-        //return $this->view($form, 400);
+        //}
+
+        return View::create($form, 400);
     }
     
     /**
