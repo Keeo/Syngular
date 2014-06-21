@@ -5,6 +5,7 @@ namespace Syngular\BackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints AS Assert;
 
 /**
  * @ORM\Entity
@@ -16,6 +17,7 @@ class Person extends AbstractEntity
      * @var string $name
      * 
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Length(min = 4, max = 10)
      */
     private $name;
 
