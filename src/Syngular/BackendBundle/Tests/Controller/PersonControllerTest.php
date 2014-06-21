@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class PersonControllerTest extends WebTestCase
 {
-    /*public function testIndex()
+    public function testAll()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+        $crawler = $client->request('GET', '/people');
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
-    }*/
+        $this->assertTrue($crawler->filter('html:contains("Karel")')->count() > 0);
+    }
     
     /*public function testPost()
     {
@@ -28,8 +28,6 @@ class PersonControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('DELETE', '/people/',['name'=>'Karel']);
-        
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+        $crawler = $client->request('DELETE', '/people/', ['id'=>'12']);
     }
 }

@@ -37,5 +37,5 @@ class PersonController extends AbstractController
         $view = $this->view($person, 200)->setFormat("json");
         return $view;
     }
-
+    
 }
