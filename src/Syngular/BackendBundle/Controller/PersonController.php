@@ -57,7 +57,16 @@ class PersonController extends AbstractController
         return $this->processForm($person);
     }
     
-    
+    /**
+     * @ParamConverter("person", converter="fos_rest.request_body")
+     * @Route("/people/{id}")
+     * @Method("PUT")
+     */
+    public function putAction($id, Person $person) 
+    {
+        $person->setId($id);
+        return $this->processForm($person);
+    }
     
     private function processForm(Person $person)
     {
@@ -68,7 +77,11 @@ class PersonController extends AbstractController
 
         if (!count($errors)) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($person);
+            if ($person->getId()) {
+                $em->merge($person);
+            } else {
+                $em->persist($person);
+            }
             $em->flush();
             
             $response = new Response();
