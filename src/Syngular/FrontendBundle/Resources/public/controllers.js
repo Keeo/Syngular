@@ -1,11 +1,11 @@
 angular.module('People.controllers', [])
 		.controller('PeopleCtrl', function($scope, people) {
-			$scope.people = people.data;
+			$scope.people = people.data.people;
 		})
 
 		.controller('PersonCtrl', function($scope, $routeParams, $location, PeopleService, person) {
 
-			$scope.person = person.data;
+			$scope.person = person.data.people;
 
 			$scope.deletePerson = function() {
 				PeopleService.delete($routeParams.personId).success(function() {
@@ -24,7 +24,7 @@ angular.module('People.controllers', [])
 
 			$scope.addPerson = function() {
 				if ($scope.person.name.length === 0 || $scope.person.address.length === 0) {
-					alert('Vyplň to pořádně hajzle');
+					//alert('Vyplň to pořádně hajzle');
 					return;
 				}
 
@@ -37,12 +37,12 @@ angular.module('People.controllers', [])
 		})
 
 		.controller('EditCtrl', function($scope, $routeParams, $location, PeopleService, person) {
-			$scope.person = person.data;
+			$scope.person = person.data.people;
 			$scope.send = false;
 
 			$scope.updatePerson = function() {
 				if ($scope.person.name.length === 0 || $scope.person.address.length === 0) {
-					alert('Takhle by to nešlo, koukej to opravit!');
+					//alert('Takhle by to nešlo, koukej to opravit!');
 					return;
 				}
 
