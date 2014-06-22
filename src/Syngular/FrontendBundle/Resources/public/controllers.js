@@ -1,15 +1,11 @@
 angular.module('People.controllers', [])
-		.controller('PeopleCtrl', function($scope, PeopleService) {
-			PeopleService.getAll().success(function(response) {
-				$scope.people = response;
-			});
-
+		.controller('PeopleCtrl', function($scope, people) {
+			$scope.people = people.data;
 		})
 
-		.controller('PersonCtrl', function($scope, $routeParams, $location, PeopleService) {
-			PeopleService.get($routeParams.personId).success(function(response) {
-				$scope.person = response;
-			});
+		.controller('PersonCtrl', function($scope, $routeParams, $location, PeopleService, person) {
+
+			$scope.person = person.data;
 
 			$scope.deletePerson = function() {
 				PeopleService.delete($routeParams.personId).success(function() {
@@ -40,13 +36,9 @@ angular.module('People.controllers', [])
 			};
 		})
 
-		.controller('EditCtrl', function($scope, $routeParams, $location, PeopleService) {
-			$scope.send = true;
-
-			PeopleService.get($routeParams.personId).success(function(response) {
-				$scope.person = response;
-				$scope.send = false;
-			});
+		.controller('EditCtrl', function($scope, $routeParams, $location, PeopleService, person) {
+			$scope.person = person.data;
+			$scope.send = false;
 
 			$scope.updatePerson = function() {
 				if ($scope.person.name.length === 0 || $scope.person.address.length === 0) {
