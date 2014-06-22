@@ -128,7 +128,8 @@ class PersonController extends AbstractController
      */
     public function getInjectionsAction(Person $person)
     {
-        return array('injections' => $person->getInjections());
+        $view = $this->view($person->getInjections(), 200)->setFormat("json");
+        return $view;
     }
     
     /**
