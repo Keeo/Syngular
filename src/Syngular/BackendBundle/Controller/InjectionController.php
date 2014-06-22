@@ -6,25 +6,26 @@
  */
 namespace Syngular\BackendBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use FOS\RestBundle\View\View;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Syngular\BackendBundle\Entity\Person;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller,
+    Symfony\Component\HttpFoundation\Request,
+    Symfony\Component\HttpKernel\Exception\NotFoundHttpException,
+    Symfony\Component\HttpFoundation\Response,
+    Symfony\Component\HttpKernel\Exception\HttpException;
 
-use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\Controller\Annotations\RequestParam;
-use FOS\RestBundle\Controller\Annotations\QueryParam;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\Method,
+    Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\Response;
-use Syngular\BackendBundle\Form\PersonType;
+use FOS\RestBundle\View\View,
+    FOS\RestBundle\Controller\Annotations as Rest,
+    FOS\RestBundle\Request\ParamFetcher,
+    FOS\RestBundle\Controller\Annotations\RequestParam,
+    FOS\RestBundle\Controller\Annotations\QueryParam;
 
-use Syngular\BackendBundle\Entity\Injection;
+use Syngular\BackendBundle\Entity\Person,
+    Syngular\BackendBundle\Form\PersonType,
+    Syngular\BackendBundle\Entity\Injection;
 
 class InjectionController extends AbstractController
 {
@@ -35,6 +36,17 @@ class InjectionController extends AbstractController
      */
     public function oneAction(Injection $injection)
     {
+        return ["injection"=>$injection];
+    }
+    
+    /**
+     * @Route("/injection", name="injection_get")
+     * @Method("GET")
+     * @Rest\View
+     */
+    public function allAction()
+    {
+        $injection = $this->getRepository()->findAll();
         return ["injection"=>$injection];
     }
 }
