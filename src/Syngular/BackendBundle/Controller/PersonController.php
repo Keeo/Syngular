@@ -130,7 +130,7 @@ class PersonController extends AbstractController
     }
     
     /**
-     * @Route("/people/{id}")
+     * @Route("/people/{id}/injection")
      * @Method("LINK")
      * @Rest\View(statusCode=204)
      */
