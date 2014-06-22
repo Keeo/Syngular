@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints AS Assert;
  */
 class Person extends AbstractEntity
 {
+    
+    public function __construct()
+    {
+        $this->injections = new ArrayCollection;
+    }
+    
     /**
      * @var string $name
      * 
@@ -25,6 +31,11 @@ class Person extends AbstractEntity
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     protected $address;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Injection", mappedBy="person")
+     */
+    private $injections;
     
     /**
      * Set name
@@ -70,5 +81,38 @@ class Person extends AbstractEntity
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Add injections
+     *
+     * @param \Syngular\BackendBundle\Entity\Injection $injections
+     * @return Person
+     */
+    public function addInjection(\Syngular\BackendBundle\Entity\Injection $injections)
+    {
+        $this->injections[] = $injections;
+
+        return $this;
+    }
+
+    /**
+     * Remove injections
+     *
+     * @param \Syngular\BackendBundle\Entity\Injection $injections
+     */
+    public function removeInjection(\Syngular\BackendBundle\Entity\Injection $injections)
+    {
+        $this->injections->removeElement($injections);
+    }
+
+    /**
+     * Get injections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInjections()
+    {
+        return $this->injections;
     }
 }
