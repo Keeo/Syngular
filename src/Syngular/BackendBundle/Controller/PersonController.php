@@ -148,9 +148,6 @@ class PersonController extends AbstractController
             if ($person->getInjections()->contains($i)) {
                 throw new HttpException(409, 'Users are already friends');
             }
-            echo $i->getId();
-            echo "<br>";
-            echo $person->getId();
             
             $person->addInjection($i);
             $i->setPerson($person);
