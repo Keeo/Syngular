@@ -4,8 +4,8 @@ angular.module('People.services', [])
 				this.api_url = url;
 			};
 
-			CrudService.prototype.get = function(id) {
-				return $http.get(this.api_url + '/' + id);
+			CrudService.prototype.get = function(id, aqs) {
+				return $http.get(this.api_url + '/' + id + aqs);
 			};
 
 			CrudService.prototype.getAll = function() {
@@ -24,6 +24,22 @@ angular.module('People.services', [])
 				return $http.delete(this.api_url + '/' + id);
 			};
 
+			CrudService.prototype.link = function(id, linkedEntity, rel, ids) {
+				var linkedHeaderString = '';
+				for (var i in ids) {
+					i > 0 && (linkedHeaderString += ', ');
+					linkedHeaderString += '"/' + linkedEntity + '/' + ids[i] + '"; rel="' + rel + '"';
+				}
+
+				return $http({
+					method: 'LINK',
+					url: this.api_url + '/' + id + '/' + linkedEntity,
+					headers: {
+						'Link': linkedHeaderString
+					}
+				});
+			};
+
 			return {
 				getInstance: function(api_url) {
 					return new CrudService(api_url);
@@ -33,10 +49,13 @@ angular.module('People.services', [])
 		})
 
 		.factory('PeopleService', function(AbstractCrudService) {
-
 			var api_url = 'http://localhost/Syngular/web/app_dev.php/people';
-
 			var service = AbstractCrudService.getInstance(api_url);
+			return service;
+		})
 
+		.factory('InjectionService', function(AbstractCrudService) {
+			var api_url = 'http://localhost/Syngular/web/app_dev.php/injection';
+			var service = AbstractCrudService.getInstance(api_url);
 			return service;
 		});
