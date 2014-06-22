@@ -37,7 +37,7 @@ class PersonController extends AbstractController
     public function allAction()
     {
         $people = $this->getRepository()->findAll();
-        return [$people];
+        return ["people"=>$people];
     }
     
     /**
@@ -47,7 +47,7 @@ class PersonController extends AbstractController
      */
     public function oneAction(Person $person)
     {
-        return [$person];
+        return ["people"=>$person];
     }
     
     /**

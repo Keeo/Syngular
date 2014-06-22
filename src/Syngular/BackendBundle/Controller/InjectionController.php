@@ -35,6 +35,6 @@ class InjectionController extends AbstractController
      */
     public function oneAction(Injection $injection)
     {
-        return [$injection];
+        return ["injection"=>$injection];
     }
 }
