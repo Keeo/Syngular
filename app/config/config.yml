@@ -1,3 +1,9 @@
+services:
+    link_listener:
+        class: Syngular\BackendBundle\EventListener\LinkRequestListener
+        arguments:    ["@controller_resolver", "@router"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }

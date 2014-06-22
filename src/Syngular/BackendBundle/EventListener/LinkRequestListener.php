@@ -60,15 +60,19 @@ class LinkRequestListener
 
         // The controller resolver needs a request to resolve the controller.
         $stubRequest = new Request();
-
+        
         foreach ($links as $idx => $link) {
             $linkParams = explode(';', trim($link));
             $resource   = array_shift($linkParams);
-            $resource   = preg_replace('/<|>/', '', $resource);
+            $resource   = preg_replace('/\"|\"/', '', $resource);
 
             try {
                 $route = $this->urlMatcher->match($resource);
-            } catch (\Exception $e) {
+            } catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $e) {
+                // If we don't have a matching route we return
+                // the original Link header
+                continue;
+            } catch (\Symfony\Component\Routing\Exception\MethodNotAllowedException $e) {
                 // If we don't have a matching route we return
                 // the original Link header
                 continue;

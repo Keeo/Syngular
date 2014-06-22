@@ -9,7 +9,7 @@ namespace Syngular\BackendBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use FOS\RestBundle\Controller\Annotations\View as Rest;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
 use Syngular\BackendBundle\Form\PersonType;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Syngular\BackendBundle\Entity\Injection;
 
 class PersonController extends AbstractController
@@ -31,22 +32,22 @@ class PersonController extends AbstractController
     /**
      * @Route("/people", name="people_get")
      * @Method("GET")
+     * @Rest\View
      */
     public function allAction()
     {
         $people = $this->getRepository()->findAll();
-        $view = $this->view($people, 200)->setFormat("json");
-        return $view;
+        return [$people];
     }
     
     /**
      * @Route("/people/{id}")
      * @Method("GET")
+     * @Rest\View
      */
     public function oneAction(Person $person)
     {
-        $view = $this->view($person, 200)->setFormat("json");
-        return $view;
+        return [$person];
     }
     
     /**
@@ -107,34 +108,31 @@ class PersonController extends AbstractController
     }
     
     /**
-     * @Rest/View(statusCode=204)
      * @Route("/people/{id}")
      * @Method("DELETE")
+     * @Rest\View(statusCode=204)
      */
     public function deleteAction(Person $person)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($person);
         $em->flush();
-
-        $response = new Response();
-        $response->setStatusCode(204);
-        return $response;
     }
     
     /**
      * @Route("/people/{id}/injections")
      * @Method("GET")
+     * @Rest\View
      */
     public function getInjectionsAction(Person $person)
     {
-        $view = $this->view($person->getInjections(), 200)->setFormat("json");
-        return $view;
+        return ['injections'=>$person->getInjections()];
     }
     
     /**
      * @Route("/people/{id}")
      * @Method("LINK")
+     * @Rest\View(statusCode=204)
      */
     public function linkAction(Person $person, Request $request)
     {
@@ -150,7 +148,12 @@ class PersonController extends AbstractController
             if ($person->getInjections()->contains($i)) {
                 throw new HttpException(409, 'Users are already friends');
             }
+            echo $i->getId();
+            echo "<br>";
+            echo $person->getId();
+            
             $person->addInjection($i);
+            $i->setPerson($person);
         }
         $em = $this->getDoctrine()->getManager();
         $em->persist($person);
