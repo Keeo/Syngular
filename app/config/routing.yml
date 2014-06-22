@@ -2,8 +2,9 @@ syngular_frontend:
     resource: "@SyngularFrontendBundle/Controller/"
     type:     annotation
     prefix:   /
-
+    
 syngular_backend:
     resource: "@SyngularBackendBundle/Controller/"
     type:     annotation
     prefix:   /
+    defaults: {_format: json}

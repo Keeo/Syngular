@@ -82,7 +82,6 @@ fos_rest:
         view_response_listener: 'force'
     body_converter:
         enabled: true
-        #validate: true
 
 sensio_framework_extra:
     view:    { annotations: false }
