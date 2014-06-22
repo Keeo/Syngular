@@ -15,21 +15,25 @@ class LoadPersonData extends AbstractFixture implements OrderedFixtureInterface
         $p = new Person;
         $p->setName("Karel");
         $p->setAddress("Karlova 44, Praha 7");
+        $p->addInjection($this->getReference('injection'));
         $manager->persist($p);
         
         $p = new Person;
         $p->setName("Honza");
         $p->setAddress("Janova 44, Brno 25");
+        $p->addInjection($this->getReference('injection'));
         $manager->persist($p);
         
         $p = new Person;
         $p->setName("Jonas");
         $p->setAddress("Irak 44, Vybuch");
+        $p->addInjection($this->getReference('injection'));
         $manager->persist($p);
         
         $p = new Person;
         $p->setName("Sarka");
         $p->setAddress("Na sluji, Zima 8");
+        $p->addInjection($this->getReference('injection'));
         $manager->persist($p);
         
         $manager->flush();
@@ -37,6 +41,6 @@ class LoadPersonData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 1;
+        return 2;
     }
 }

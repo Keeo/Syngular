@@ -39,7 +39,7 @@ class Injection extends AbstractEntity
 
     /**
      * @ORM\ManyToOne(targetEntity="Person", inversedBy="injections")
-     * @ORM\JoinColumn(name="injection_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      */
     private $person;
     
