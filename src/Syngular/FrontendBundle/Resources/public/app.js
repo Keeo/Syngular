@@ -20,6 +20,12 @@ angular.module('People', ['ngRoute', 'People.controllers', 'People.services'])
 						resolve: {
 							person: function($route, PeopleService) {
 								return PeopleService.get($route.current.params.personId)
+							},
+							allInjections: function(InjectionService) {
+								return InjectionService.getAll();
+							},
+							hisInjections: function($route, PeopleService) {
+								return PeopleService.get($route.current.params.personId, '/injections');
 							}
 						}
 					})

@@ -1,13 +1,54 @@
 <div class="row">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h2 class="panel-title">{{ person.name }}</h2>
-		</div>
-		<div class="panel-body">
-			{{ person.address }}
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">{{ person.name}}</h2>
+			</div>
+			<div class="panel-body">
+				{{ person.address}}
+			</div>
 		</div>
 	</div>
 </div>
-<p></p>
-<a href="#/edit/{{ person.id }}" class="btn btn-default">Upravit</a>
-<button ng-click="deletePerson()" class="btn btn-danger">Smazat</button>
+<div class="row form-group">
+	<div class="col-xs-12">
+		<a href="#/edit/{{ person.id}}" class="btn btn-default">Upravit</a>
+		<button ng-click="deletePerson()" class="btn btn-danger">Smazat</button>
+	</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Přidat injekci
+			</div>
+			<div class="panel-body">
+				<div class="col-xs-10">
+					<select class="form-control" ng-model="injection.id">
+						<option ng-repeat="injection in allInjections" value="{{injection.id}}">{{injection.name}}</option>
+					</select>
+				</div>
+				<div class="col-xs-2">
+					<button ng-click="assignInjection()" class="btn btn-primary">Přidat</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-6">
+		<div class="panel panel-info" ng-show="hisInjections.length > 0">
+			<div class="panel-heading">
+				Přehled injekcí
+			</div>
+			<div class="panel-body list-group">
+				<div ng-repeat="injection in hisInjections" class="list-group-item">
+					{{ injection.name }}
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-danger" ng-show="hisInjections.length === 0">
+			<div class="panel-heading">
+				Tenhle týpek nemá žádné injekce
+			</div>
+		</div>
+	</div>
+</div>
