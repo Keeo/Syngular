@@ -11,23 +11,21 @@ class PersonControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/people');
-
-        $this->assertTrue($crawler->filter('html:contains("Karel")')->count() > 0);
+        
+        $response = $client->getResponse();
+        
+        $this->assertJsonResponse($response, 200);
     }
-    
-    /*public function testPost()
+
+    protected function assertJsonResponse($response, $statusCode = 200)
     {
-        $client = static::createClient();
-
-        $crawler = $client->request('POST', '/people/',['name'=>'Karel']);
-
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
-    }*/
-    
-    public function testDelete()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('DELETE', '/people/', ['id'=>'12']);
+        $this->assertEquals(
+            $statusCode, $response->getStatusCode(),
+            $response->getContent()
+        );
+        $this->assertTrue(
+            $response->headers->contains('Content-Type', 'application/json'),
+            $response->headers
+        );
     }
 }
