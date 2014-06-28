@@ -55,32 +55,28 @@ class PersonController extends AbstractController
      * @Route("/people")
      * @Method("POST")
      */
-    public function newAction(Person $person) 
+    public function newAction(Request $request, Person $person) 
     {
-        return $this->processForm($person);
+        return $this->processForm($request, $person);
     }
     
     /**
-     * @ParamConverter("person", converter="fos_rest.request_body")
-     * @Route("/people/{id}")
+     * @Route("/people/{person}")
      * @Method("PUT")
      */
-    public function putAction(Person $person, $id) 
+    public function putAction(Request $request, Person $person) 
     {
-        $person->setId($id);
-        return $this->processForm($person);
+        return $this->processForm($request, $person);
     }
     
-    private function processForm(Person $person, Request $request = null)
+    private function processForm(Request $request, Person $person)
     {
         $statusCode = $person->getId() ? 201 : 204;
 
-        $form = $this->createForm(new PersonType(), $person);
-        if ($request != null) {
-            $form->handleRequest($request);
-        }
+        $form = $this->createForm(new PersonType, $person);
+        $form->submit($request);
         
-        //if ($form->isValid()) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             if (!$person->getId()) {
                 $em->persist($person);
@@ -102,7 +98,7 @@ class PersonController extends AbstractController
             }
 
             return $response;
-        //}
+        }
 
         return View::create($form, 400);
     }

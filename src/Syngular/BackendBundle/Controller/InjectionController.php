@@ -24,7 +24,7 @@ use FOS\RestBundle\View\View,
     FOS\RestBundle\Controller\Annotations\QueryParam;
 
 use Syngular\BackendBundle\Entity\Person,
-    Syngular\BackendBundle\Form\PersonType,
+    Syngular\BackendBundle\Form\InjectionType,
     Syngular\BackendBundle\Entity\Injection;
 
 class InjectionController extends AbstractController
@@ -48,5 +48,62 @@ class InjectionController extends AbstractController
     {
         $injection = $this->getRepository()->findAll();
         return ["injection"=>$injection];
+    }
+    
+    /**
+     * @ParamConverter("injection", converter="fos_rest.request_body")
+     * @Route("/people/{person}/injection")
+     * @Route("/injection", defaults={"person" = null})
+     * @Method("POST")
+     */
+    public function newAction(Request $request, Injection $injection, Person $person = null) 
+    {
+        if ($person) {
+            $injection->setPerson($person);
+        }
+        return $this->processForm($request, $injection);
+    }
+    
+    /**
+     * @Route("/injection/{injection}")
+     * @Method("PUT")
+     */
+    public function putAction(Request $request, Injection $injection) 
+    {
+        return $this->processForm($request, $injection);
+    }
+    
+    private function processForm(Request $request, Injection $injection)
+    {
+        $statusCode = $injection->getId() ? 201 : 204;
+
+        $form = $this->createForm(new InjectionType(), $injection);
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            if (!$injection->getId()) {
+                $em->persist($injection);
+            } else {
+                $em->merge($injection);
+            }
+            $em->flush();
+
+            $response = new Response();
+            $response->setStatusCode($statusCode);
+
+            if (201 === $statusCode) {
+                $response->headers->set('Location',
+                    $this->generateUrl(
+                        'injection_get', array('id' => $injection->getId()),
+                        true
+                    )
+                );
+            }
+
+            return $response;
+        }
+
+        return View::create($form, 400);
     }
 }

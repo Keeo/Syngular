@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PersonType extends AbstractType
+class InjectionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,7 +16,8 @@ class PersonType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('address')
+            ->add('code')
+            ->add('illness')
         ;
     }
     
@@ -26,8 +27,8 @@ class PersonType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Syngular\BackendBundle\Entity\Person',
-            'csrf_protection' => false,
+            'data_class' => 'Syngular\BackendBundle\Entity\Injection',
+            'csrf_protection'   => false,
         ));
     }
 
@@ -36,6 +37,6 @@ class PersonType extends AbstractType
      */
     public function getName()
     {
-        return 'person';
+        return 'injection';
     }
 }
