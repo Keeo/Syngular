@@ -7,12 +7,15 @@
 !var/logs/.gitkeep
 /build/
 /vendor/
-/bin/
 !bin/console
-!bin/symfony_requirements
 /composer.phar
 composer.lock
 /src/Sokol/FrontendBundle/resources/public/lib/*
 !/src/Sokol/FrontendBundle/resources/public/lib/.gitkeep
 /nbproject/private/
 /src/Syngular/FrontendBundle/Resources/public/lib/
+/bin/symfony_requirements
+/bin/doctrine.php
+/bin/doctrine.bat
+/bin/doctrine.php.bat
+/bin/doctrine
